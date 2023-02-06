@@ -11,4 +11,14 @@ router.get("/sessions", async function (req, res) {
   });
 });
 
+
+router.get("/sessions/drinks", async function (req, res){
+    const response = await getDrinks();
+    res.status(200).json({
+        success: true,
+        payload: response
+    })
+
+})
+
 export {router}

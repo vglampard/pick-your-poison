@@ -4,3 +4,5 @@ const databaseUrl = process.env.DATABASE_URL;
 export const pool = new pg.Pool({
     connectionString: databaseUrl
 })
+
+// node index.js
