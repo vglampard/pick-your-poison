@@ -1,13 +1,13 @@
 import express, { application } from 'express'
 import cors from "cors"
-//import DRINKSROUTER FROM ROUTER
+import {router} from "./routes/routes.js"
 
 const app = express()
 app.use(express.json())
 app.use(cors("*"));
 
 // do I need this? app.use(json.parse());
-//app.use("/drinks", drinksRouter)
+app.use("/api", router)
 
 const PORT = process.env.PORT;
 

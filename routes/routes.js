@@ -10,3 +10,5 @@ router.get("/sessions", async function (req, res) {
     payload: response,
   });
 });
+
+export {router}
