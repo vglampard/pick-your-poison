@@ -7,7 +7,7 @@ app.use(express.json())
 app.use(cors("*"));
 
 // do I need this? app.use(json.parse());
-app.use("/drinks", drinksRouter)
+//app.use("/drinks", drinksRouter)
 
 const PORT = process.env.PORT;
 

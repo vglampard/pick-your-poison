@@ -1,8 +1,8 @@
 import pool from "../index.js"
 
-
 // CREATE sessions table
 export async function createSessionsTable() {
+  console.log("table created")
     await pool.query(
       "CREATE TABLE sessions(id INT GENERATED ALWAYS AS IDENTITY, date DATE PRIMARY KEY, headache INT, nausea INT, fatigue INT);"
     );
@@ -25,6 +25,30 @@ try {
   await pool.end();
 }
 
-// DELETE userDrinks table
 
-// DELETE users table
+// SEED sessions table
+export async function seedSessionsTable (){
+  await pool.query(
+    ";"
+  );
+} 
+
+// SEED drinks table
+export async function seedDrinksTable (){
+  await pool.query(
+    ";"
+  );
+} 
+
+// DELETE drinks table
+export async function deleteDrinksTable (){
+  await pool.query(
+    ";"
+  );
+} 
+// DELETE sessions table
+export async function deleteSessionsTable (){
+  await pool.query(
+    ";"
+  );
+} 
