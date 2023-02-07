@@ -7,7 +7,7 @@ router.get("/sessions", async function (req, res) {
   const response = await getSessions();
   res.status(200).json({
     success: true,
-    payload: response,
+    payload: response.rows,
   });
 });
 
