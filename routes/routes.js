@@ -1,5 +1,6 @@
 import express from "express";
-import { getSessions } from "../models/models.js";
+import { getSessions, postDrinks, postSession } from "../models/models.js";
+// getDrinks, 
 
 const router = express.Router();
 
@@ -11,14 +12,20 @@ router.get("/sessions", async function (req, res) {
   });
 });
 
-
-router.get("/sessions/drinks", async function (req, res){
-    const response = await getDrinks();
-    res.status(200).json({
-        success: true,
-        payload: response
-    })
+router.post("/", async function (req, res){
+  const response = await postNewData
 
 })
+
+
+
+// router.get("/sessions/drinks", async function (req, res){
+//     const response = await getDrinks();
+//     res.status(200).json({
+//         success: true,
+//         payload: response
+//     })
+
+// })
 
 export {router}

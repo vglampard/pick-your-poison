@@ -1,4 +1,30 @@
-import pool from "../index.js"
+import {pool} from "../index.js"
+import {drinks, sessions} from '../data.js'
+
+// DELETE drinks table
+export async function deleteDrinksTable (){
+  await pool.query(
+    "DROP table drinks;"
+  );
+} 
+// DELETE sessions table
+export async function deleteSessionsTable (){
+  await pool.query(
+    "DROP table sessions;"
+  );
+} 
+
+
+// try {
+//   deleteSessionsTable();
+//   deleteDrinksTable();
+// } catch(error){
+//   console.log(error)
+// } finally {
+//   await pool.end();
+// }
+
+
 
 // CREATE sessions table
 export async function createSessionsTable() {
@@ -16,39 +42,52 @@ export async function createDrinksTable (){
 }  
 
 
-try {
-  createSessionsTable();
-  createDrinksTable()
-} catch(error){
-  console.log(error)
-} finally {
-  await pool.end();
-}
+// try {
+//   createSessionsTable();
+//   createDrinksTable()
+// } catch(error){
+//   console.log(error)
+// } finally {
+//   await pool.end();
+// }
 
 
 // SEED sessions table
 export async function seedSessionsTable (){
   await pool.query(
-    ";"
+    `INSERT INTO sessions (date, headache, nausea, fatigue) (SELECT date, headache, nausea, fatigue FROM json_populate_recordset(NULL::sessions, $1::JSON));`,
+    [JSON.stringify(sessions)]
   );
 } 
 
 // SEED drinks table
 export async function seedDrinksTable (){
-  await pool.query(
-    ";"
-  );
+  await pool.query(`INSERT INTO drinks (date, wine, beer, spirit, cider, alcopop) (SELECT date, wine, beer, spirit, cider, alcopop FROM json_populate_recordset(NULL::drinks, $1::JSON));`,
+  [JSON.stringify(drinks)]
+);
 } 
 
-// DELETE drinks table
-export async function deleteDrinksTable (){
-  await pool.query(
-    ";"
-  );
-} 
-// DELETE sessions table
-export async function deleteSessionsTable (){
-  await pool.query(
-    ";"
-  );
-} 
+// try {
+//   seedSessionsTable();
+// seedDrinksTable();
+// } catch (error) {
+//   console.log(error);
+// } finally {
+//   await pool.end();
+// }
+
+
+try {
+  deleteDrinksTable();
+  deleteSessionsTable();
+  createDrinksTable();
+  createSessionsTable();
+  seedSessionsTable();
+seedDrinksTable();
+} catch (error) {
+  console.log(error);
+} finally {
+  await pool.end();
+}
+
+
