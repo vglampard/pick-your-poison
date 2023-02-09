@@ -1,11 +1,11 @@
-// import {pool} from "../db/index.js" 
+import {pool} from "../db/index.js" 
 // import {response} from "express"
 const databaseUrl = process.env.DATABASE_URL
 
 // GET all sessions
 export async function getSessions(){
     const res = await pool.query(
-        `SELECT * from sessions;`
+        `SELECT * from sessions INNER JOIN drinks ON sessions.date = drinks.date;`
     )
     return res;
 }
