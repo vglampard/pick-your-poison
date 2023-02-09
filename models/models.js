@@ -5,7 +5,7 @@ const databaseUrl = process.env.DATABASE_URL
 // GET all sessions
 export async function getSessions(){
     const res = await pool.query(
-        `SELECT * from sessions INNER JOIN drinks ON sessions.date = drinks.date;`
+        `SELECT * from sessions;`
     )
     return res;
 }
