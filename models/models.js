@@ -13,7 +13,7 @@ export async function getSessions() {
 // POST new session
 export async function postDrinks(date, wine, beer, spirit, cider, alcopop) {
   const resDrinksPost = await pool.query(
-    `INSERT INTO drinks(date, wine, beer, spirit, cider, alcopop) VALUES $1, $2, $3, $4, $5, $6 RETURNING *);`,
+    `INSERT INTO drinks(date, wine, beer, spirit, cider, alcopop) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;`,
     [date, wine, beer, spirit, cider, alcopop]
   );
 
