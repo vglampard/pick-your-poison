@@ -24,17 +24,20 @@ export async function postSession(session) {
     ]
   );
 
-  const resSessionPost = await pool.query(
-    "INSERT INTO sessions (date, headache, nausea, fatigue) VALUES $1, $1, $3, $4 RETURNNG *;",
-    [session.date, session, headache, session.nausea, session.fatigue]
-  );
+//   const resSessionPost = await pool.query(
+//     "INSERT INTO sessions (date, headache, nausea, fatigue) VALUES $1, $2, $3, $4 RETURNNG *;",
+//     [session.date, session, headache, session.nausea, session.fatigue]
+//   );
 
-  let res = { drinks: resDrinksPost.rows, hangover: resSessionPost.rows };
-  return res;
+//   let res = { drinks: resDrinksPost.rows, hangover: resSessionPost.rows };
+//   return res;
+return resDrinksPost;
 }
 
+
 // POST new drinks
-export async function postDrinks({ date, headache, nausea, fatigue }) {
+export async function postHangover(date, headache, nausea, fatigue ) {
+    console.log("DATA AT MODEL:", date, headache, nausea, fatigue)
   const res = await pool.query(
     `INSERT INTO sessions (date, headache, nausea, fatigue) VALUES ($1, $2, $3, $4) RETURNING *;`,
     [date, headache, nausea, fatigue]
