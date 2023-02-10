@@ -40,7 +40,7 @@ export async function createSessionsTable() {
  // CREATE drinks table
 export async function createDrinksTable (){
     await pool.query(
-      "CREATE TABLE drinks(id INT GENERATED ALWAYS AS IDENTITY, date DATE PRIMARY KEY, wine INT, beer INT, spirit INT, cider INT, alcopop INT);"
+      "CREATE TABLE drinks(id INT GENERATED ALWAYS AS IDENTITY, date DATE REFERENCES sessions(date), wine INT, beer INT, spirit INT, cider INT, alcopop INT);"
     );
     console.log("Drinks table created")
 }  
@@ -88,7 +88,7 @@ try {
   // deleteSessionsTable();
   // createDrinksTable();
   // createSessionsTable();
-//   seedSessionsTable();
+  // seedSessionsTable();
 // seedDrinksTable();
 console.log("db reset complete")
 } catch (error) {

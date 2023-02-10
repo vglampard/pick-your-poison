@@ -1,6 +1,6 @@
 import express from "express";
-import { getSessions, postSession, postHangover } from "../models/models.js";
-// getDrinks, 
+import { getSessions, postDrinks, postHangover } from "../models/models.js";
+
 
 const router = express.Router();
 
@@ -25,11 +25,12 @@ router.get("/sessions", async function (req, res) {
 //LIMITED FOR BUG FIX
 router.post("/sessions", async function (req, res){
   const session = req.body;
-  console.log("DATA AT ROUTER:", session.date, session.headache, session.nausea, session.fatigue)
-  const response = await postHangover(session.date, session.headache, session.nausea, session.fatigue );
+  console.log("DATA AT ROUTER:", session)
+  const resHangover = await postHangover(session.date, session.headache, session.nausea, session.fatigue );
+  const resDrinks = await postDrinks(session.date, session.wine, session.beer, session.spirit, session.cider, session.alcopop)
   res.status(200).json({
     success: true,
-    payload: response
+    payload: {drinks: resDrinks, hangover: resHangover}
   });
 });
 

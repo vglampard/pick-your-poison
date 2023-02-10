@@ -11,33 +11,18 @@ export async function getSessions() {
 }
 
 // POST new session
-export async function postSession(session) {
+export async function postDrinks(date, wine, beer, spirit, cider, alcopop) {
   const resDrinksPost = await pool.query(
     `INSERT INTO drinks(date, wine, beer, spirit, cider, alcopop) VALUES $1, $2, $3, $4, $5, $6 RETURNING *);`,
-    [
-      session.date,
-      session.wine,
-      session.beer,
-      session.spirit,
-      session.cider,
-      session.alcopop,
-    ]
+    [date, wine, beer, spirit, cider, alcopop]
   );
 
-//   const resSessionPost = await pool.query(
-//     "INSERT INTO sessions (date, headache, nausea, fatigue) VALUES $1, $2, $3, $4 RETURNNG *;",
-//     [session.date, session, headache, session.nausea, session.fatigue]
-//   );
-
-//   let res = { drinks: resDrinksPost.rows, hangover: resSessionPost.rows };
-//   return res;
-return resDrinksPost;
+  return resDrinksPost.rows;
 }
 
-
-// POST new drinks
-export async function postHangover(date, headache, nausea, fatigue ) {
-    console.log("DATA AT MODEL:", date, headache, nausea, fatigue)
+// POST new hangover
+export async function postHangover(date, headache, nausea, fatigue) {
+  console.log("DATA AT MODEL:", date, headache, nausea, fatigue);
   const res = await pool.query(
     `INSERT INTO sessions (date, headache, nausea, fatigue) VALUES ($1, $2, $3, $4) RETURNING *;`,
     [date, headache, nausea, fatigue]
