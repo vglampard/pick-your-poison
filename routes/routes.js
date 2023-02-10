@@ -1,5 +1,5 @@
 import express from "express";
-import { getSessions, postDrinks, postSession } from "../models/models.js";
+import { getSessions, postSession } from "../models/models.js";
 // getDrinks, 
 
 const router = express.Router();
@@ -12,8 +12,8 @@ router.get("/sessions", async function (req, res) {
   });
 });
 
-router.post("/", async function (req, res){
-  const response = await postNewData
+router.post("/sessions", async function (req, res){
+  const response = await postSession(req.body);
 
 })
 
