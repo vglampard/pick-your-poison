@@ -1,6 +1,26 @@
 import {pool} from "../index.js"
 import {drinks, sessions} from '../data.js'
 
+// ORDER IS IMPORTANT HERE!
+
+try {
+  // deleteDrinksTable();
+  // deleteSessionsTable();
+    // createSessionsTable();
+  // createDrinksTable();
+  // seedDrinksTable();
+  // seedSessionsTable();
+
+console.log("db reset complete")
+} catch (error) {
+  console.log(error);
+} finally {
+  await pool.end();
+}
+
+
+
+
 // DELETE drinks table
 export async function deleteDrinksTable (){
   await pool.query(
@@ -81,20 +101,5 @@ console.log("drinks table seeded")
 // } finally {
 //   await pool.end();
 // }
-
-
-try {
-  // deleteDrinksTable();
-  // deleteSessionsTable();
-  // createDrinksTable();
-  // createSessionsTable();
-  // seedSessionsTable();
-// seedDrinksTable();
-console.log("db reset complete")
-} catch (error) {
-  console.log(error);
-} finally {
-  await pool.end();
-}
 
 
