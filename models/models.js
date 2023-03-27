@@ -22,7 +22,6 @@ export async function postDrinks(date, wine, beer, spirit, cider, alcopop) {
 
 // POST new hangover
 export async function postHangover(date, headache, nausea, fatigue) {
-  console.log("DATA AT MODEL:", date, headache, nausea, fatigue);
   const res = await pool.query(
     `INSERT INTO sessions (date, headache, nausea, fatigue) VALUES ($1, $2, $3, $4) RETURNING *;`,
     [date, headache, nausea, fatigue]
@@ -34,8 +33,10 @@ export async function postHangover(date, headache, nausea, fatigue) {
 
 export async function deleteSession(date){
   const res = await pool.query(
-    'DELETE FROM drinks WHERE date = $1; DELETE FROM sessions WHERE date = $1 RETURNING *;', [date]
-  )
+    'DELETE FROM drinks WHERE date = $1; DELETE FROM sessions WHERE date = $1 RETURNING *;', [date])
   return res.rows;
 }
+
+// 
+  
 

@@ -25,7 +25,7 @@ router.post("/sessions", async function (req, res){
 });
 
 //DELETE route
-router.delete("/sessions", async function (req, res){
+router.delete("/sessions/:date", async function (req, res){
 const date = req.params.date;
 const deletedSession = await deleteSession(date);
 res.status(200).json({
