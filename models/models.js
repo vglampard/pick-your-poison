@@ -10,6 +10,15 @@ export async function getSessions() {
   return res;
 }
 
+//TEST date format get
+export async function getSessionByDate(date) {
+  console.log("MODEL REACHED with val date of:", date)
+  const res = await pool.query(
+    `SELECT * from sessions WHERE sessions.date = $1;`, [date]
+  );
+  return res;
+}
+
 // POST new session
 export async function postDrinks(date, wine, beer, spirit, cider, alcopop) {
   const resDrinksPost = await pool.query(
@@ -30,12 +39,21 @@ export async function postHangover(date, headache, nausea, fatigue) {
 }
 
 // DELETE session 
-
-export async function deleteSession(date){
+export async function deleteDrinksByDate(date){
   const res = await pool.query(
-    'DELETE FROM drinks WHERE date = $1; DELETE FROM sessions WHERE date = $1 RETURNING *;', [date])
+    'DELETE FROM drinks WHERE date = $1;', [date])
+    // console.log("🚨DRINKS RES AFTER FETCH:", res)
   return res.rows;
 }
+
+export async function deleteHangoverByDate(date){
+  const res = await pool.query(
+    'DELETE FROM sessions WHERE date = $1;', [date])
+    // console.log("🚨H/O RES AFTER FETCH:", res)
+  return res.rows;
+}
+
+
 
 // 
   

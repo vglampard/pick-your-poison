@@ -1,5 +1,5 @@
 import express from "express";
-import { getSessions, postDrinks, postHangover, deleteSession } from "../models/models.js";
+import { getSessions, postDrinks, postHangover, deleteDrinksByDate, deleteHangoverByDate, getSessionByDate } from "../models/models.js";
 
 
 const router = express.Router();
@@ -12,6 +12,15 @@ router.get("/sessions", async function (req, res) {
   });
 });
 
+// get specific session by date
+router.get("/sessions/:date", async function (req, res) {
+  
+  const response = await getSessionByDate(req.params.date);
+   res.status(200).json({
+    success: true,
+    payload: response.rows,
+  });
+});
 
 //LIMITED FOR BUG FIX
 router.post("/sessions", async function (req, res){
@@ -26,11 +35,15 @@ router.post("/sessions", async function (req, res){
 
 //DELETE route
 router.delete("/sessions/:date", async function (req, res){
+  // console.log("🚨REQ:", req.params)
 const date = req.params.date;
-const deletedSession = await deleteSession(date);
+const deletedDrinks = await deleteDrinksByDate(date);
+const deletedHangover = await deleteHangoverByDate(date);
+const finalRes = {deletedDrinks, deletedHangover}
+// console.log("🚨DELETED SESSION:", finalRes)
 res.status(200).json({
   success: true,
-  payload: deletedSession
+  payload: finalRes
 });
 })
 
