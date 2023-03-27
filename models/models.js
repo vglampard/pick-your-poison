@@ -30,7 +30,7 @@ export async function postHangover(date, headache, nausea, fatigue) {
   return res.rows;
 }
 
-// DELETE sessio 
+// DELETE session 
 
 export async function deleteSession(date){
   const res = await pool.query(
@@ -38,3 +38,4 @@ export async function deleteSession(date){
   )
   return res.rows;
 }
+

@@ -1,26 +1,17 @@
 import express from "express";
-import { getSessions, postDrinks, postHangover } from "../models/models.js";
+import { getSessions, postDrinks, postHangover, deleteSession } from "../models/models.js";
 
 
 const router = express.Router();
 
 router.get("/sessions", async function (req, res) {
   const response = await getSessions();
-  res.status(200).json({
+   res.status(200).json({
     success: true,
     payload: response.rows,
   });
 });
 
-//oRIGINAL
-// router.post("/sessions", async function (req, res){
-//   const session = req.body;
-//   const response = await postSession(req.body);
-//   res.status(200).json({
-//     success: true,
-//     payload: response
-//   });
-// });
 
 //LIMITED FOR BUG FIX
 router.post("/sessions", async function (req, res){
@@ -33,14 +24,14 @@ router.post("/sessions", async function (req, res){
   });
 });
 
-
-// router.get("/sessions/drinks", async function (req, res){
-//     const response = await getDrinks();
-//     res.status(200).json({
-//         success: true,
-//         payload: response
-//     })
-
-// })
+//DELETE route
+router.delete("/sessions", async function (req, res){
+const date = req.params.date;
+const deletedSession = await deleteSession(date);
+res.status(200).json({
+  success: true,
+  payload: deletedSession
+});
+})
 
 export {router}
